@@ -13,6 +13,7 @@ body {
     width: 90vw;
     height: 100%;
     margin: auto;
+    /* background: rgba(0, 0, 0, 0.2) url(./assets/images/background.jpg); */
 }
 
 .container_title {
@@ -54,6 +55,7 @@ body {
 
 .card_read {
     display: inline-block;
+    padding-right: 1rem;
 }
 
 .btn-remove {
