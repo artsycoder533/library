@@ -14,9 +14,9 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.info = function () {
-        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-    }
+    // this.info = function () {
+    //     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
+    // }
 }
 
 Book.prototype.editReadStatus = function () {
@@ -30,6 +30,51 @@ Book.prototype.editReadStatus = function () {
 	this.previousElementSibling.textContent = status;
 }
 
+// function displayBook(arr) {
+//     arr.forEach(function (book) {
+//         console.log(book);
+//         console.log(book.info());
+//     });
+// }
+
+Book.prototype.displayBookToScreen = function () {
+    const card = document.createElement("article");
+    card.classList.add("card");
+    const cardTitle = document.createElement("h2");
+    cardTitle.classList.add("card_title");
+    cardTitle.textContent = this.title;
+    const cardAuthor = document.createElement("h3");
+    cardAuthor.classList.add("card_author");
+    cardAuthor.textContent = this.author;
+    const cardPages = document.createElement("h4");
+    cardPages.classList.add("card_pages");
+    cardPages.textContent = `${this.pages} pages`;
+    const cardRead = document.createElement("h4");
+    cardRead.classList.add("card_read");
+    cardRead.textContent = this.read;
+    const buttonEdit = document.createElement("button");
+    buttonEdit.setAttribute("id", myLibrary.indexOf(this));
+    buttonEdit.textContent = "Edit";
+    buttonEdit.classList.add("btn", "btn-edit");
+    buttonEdit.addEventListener("click", this.editReadStatus);
+    const buttonRemove = document.createElement("button");
+    buttonRemove.setAttribute("id", myLibrary.indexOf(this));
+    buttonRemove.textContent = "Remove";
+    buttonRemove.classList.add("btn", "btn-remove");
+    buttonRemove.addEventListener("click", this.removeBook);
+    card.append(cardTitle, cardAuthor, cardPages, cardRead, buttonEdit, buttonRemove);
+    container.appendChild(card);
+}
+
+Book.prototype.removeBook = function() {
+    myLibrary.splice(this.id, 1);
+    container.children[this.id].remove();
+    console.log(myLibrary);
+}
+
+
+// displayBook(myLibrary);
+
 function addBookToLibrary(title, author, pages, read) {
     const newBook = Object.create(Book.prototype);
     newBook.title = title;
@@ -41,14 +86,7 @@ function addBookToLibrary(title, author, pages, read) {
     console.log(myLibrary);
     closeAddBookModal();
     clearFormInputs();
-    displayBookToScreen(newBook);
-}
-
-function displayBook(arr) {
-    arr.forEach(function (book) {
-        console.log(book);
-        console.log(book.info());
-    });
+    newBook.displayBookToScreen();
 }
 
 function clearFormInputs() {
@@ -67,46 +105,7 @@ function closeAddBookModal() {
     modal.classList.remove("modal_open");
 }
 
-function displayBookToScreen(book) {
-    const card = document.createElement("article");
-    card.classList.add("card");
-    const cardTitle = document.createElement("h2");
-    cardTitle.classList.add("card_title");
-    cardTitle.textContent = book.title;
-    const cardAuthor = document.createElement("h3");
-    cardAuthor.classList.add("card_author");
-    cardAuthor.textContent = book.author;
-    const cardPages = document.createElement("h4");
-    cardPages.classList.add("card_pages");
-    cardPages.textContent = book.pages;
-    const cardRead = document.createElement("h4");
-    cardRead.classList.add("card_read");
-    cardRead.textContent = book.read;
-    const buttonEdit = document.createElement("button");
-    buttonEdit.setAttribute("id", myLibrary.indexOf(book));
-    buttonEdit.textContent = "Edit";
-    buttonEdit.classList.add("btn", "btn-edit");
-    buttonEdit.addEventListener("click", book.editReadStatus);
-    const buttonRemove = document.createElement("button");
-    buttonRemove.setAttribute("id", myLibrary.indexOf(book));
-    buttonRemove.textContent = "Remove";
-    buttonRemove.classList.add("btn", "btn-remove");
-    buttonRemove.addEventListener("click", removeBook);
-    card.append(cardTitle, cardAuthor, cardPages, cardRead, buttonEdit, buttonRemove);
-    container.appendChild(card);
-}
-
-function removeBook() {
-    myLibrary.splice(this.id, 1);
-    container.children[this.id].remove();
-    console.log(myLibrary);
-}
-
-
-// displayBook(myLibrary);
-
 function handleFormInput() {
-    
     const title = form.elements.namedItem("title").value;
     const author = form.elements.namedItem("author").value;
     const pages = form.elements.namedItem("pages").value;
