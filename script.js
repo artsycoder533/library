@@ -21,6 +21,7 @@ function addBookToLibrary(title, author, pages, read) {
     myLibrary.push(newBook);
     console.log(myLibrary);
     closeAddBookModal();
+    displayBookToScreen(newBook.title, newBook.author, newBook.pages, newBook.read);
 }
 
 function displayBook(arr) {
@@ -38,12 +39,37 @@ function closeAddBookModal() {
     modal.classList.remove("modal_open");
 }
 
-function displayBookToScreen() {
-    
+function displayBookToScreen(title, author, pages, read) {
+    console.log(title, author, pages, read);
+    const container = document.querySelector(".container_content");
+    const card = document.createElement("article");
+    card.classList.add("card");
+    const cardTitle = document.createElement("h2");
+    cardTitle.classList.add("card_title");
+    cardTitle.textContent = title;
+    const cardAuthor = document.createElement("h3");
+    cardAuthor.classList.add("card_author");
+    cardAuthor.textContent = author;
+    const cardPages = document.createElement("h4");
+    cardPages.classList.add("card_pages");
+    cardPages.textContent = pages;
+    const cardRead = document.createElement("h4");
+    cardRead.classList.add("card_read");
+    cardRead.textContent = read;
+    const buttonEdit = document.createElement("button");
+    buttonEdit.textContent = "Edit";
+    buttonEdit.classList.add("btn", "btn-edit");
+    const buttonRemove = document.createElement("button");
+    buttonRemove.textContent = "Remove";
+    buttonRemove.classList.add("btn", "btn-remove");
+    card.append(cardTitle, cardAuthor, cardPages, cardRead, buttonEdit, buttonRemove);
+    container.appendChild(card);
+
+
 }
 
-//addBookToLibrary();
-displayBook(myLibrary);
+
+// displayBook(myLibrary);
 
 function handleFormInput() {
     const form = document.querySelector(".form");

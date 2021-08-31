@@ -62,6 +62,7 @@ body {
 
 .modal {
     position: fixed;
+    /* position: relative; */
     display: grid;
     place-items: center;
     left: 0;
@@ -75,13 +76,15 @@ body {
 
 .modal_open {
     display: grid;
+    
 }
 
 .modal_content {
     border: 2px solid red;
     padding: 4rem;
+    width: 500px;
     background: red;
-    /* z-index: 2; */
+    position: absolute;
 }
 
 form {
