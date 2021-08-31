@@ -20,14 +20,22 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.editReadStatus = function () {
-	let status = this.previousElementSibling.textContent;
+    console.log(this.read);
+    let status = this.read;
+	// let status = this.previousElementSibling.textContent;
 	console.log(status);
 	if (status === "read") {
-		status = "has not read";
+        status = "has not read";
+        this.read = `${status}`;
 	} else if (status === "has not read") {
-		status = "read";
-	}
-	this.previousElementSibling.textContent = status;
+        status = "read";
+        this.read = `${status}`;
+    }
+    // this.previousElementSibling.textContent = status;
+    addToLocalStorage();
+    const changeStatus = container.children[myLibrary.indexOf(this)];
+    changeStatus.querySelector(".card_read").textContent = `${status}`;
+    //console.log(container.children[myLibrary.indexOf(this)]);
 }
 
 // function displayBook(arr) {
@@ -56,7 +64,7 @@ Book.prototype.displayBookToScreen = function () {
     buttonEdit.setAttribute("id", myLibrary.indexOf(this));
     buttonEdit.textContent = "Edit";
     buttonEdit.classList.add("btn", "btn-edit");
-    buttonEdit.addEventListener("click", this.editReadStatus);
+    buttonEdit.addEventListener("click", this.editReadStatus.bind(this));
     const buttonRemove = document.createElement("button");
     buttonRemove.setAttribute("id", myLibrary.indexOf(this));
     buttonRemove.textContent = "Remove";
@@ -70,6 +78,7 @@ Book.prototype.removeBook = function() {
     myLibrary.splice(this.id, 1);
     container.children[this.id].remove();
     console.log(myLibrary);
+    addToLocalStorage();
 }
 
 
@@ -87,6 +96,7 @@ function addBookToLibrary(title, author, pages, read) {
     closeAddBookModal();
     clearFormInputs();
     newBook.displayBookToScreen();
+    addToLocalStorage();
 }
 
 function clearFormInputs() {
@@ -119,6 +129,9 @@ function handleFormInput() {
     addBookToLibrary(title, author, pages, read);
 }
 
+function addToLocalStorage() {
+    localStorage.setItem("library", JSON.stringify(myLibrary));
+}
 
 //event listeners
 newBookBtn.addEventListener("click", openAddBookModal);
