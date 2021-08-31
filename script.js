@@ -38,12 +38,11 @@ Book.prototype.editReadStatus = function () {
     //console.log(container.children[myLibrary.indexOf(this)]);
 }
 
-// function displayBook(arr) {
-//     arr.forEach(function (book) {
-//         console.log(book);
-//         console.log(book.info());
-//     });
-// }
+function displayBook(arr) {
+    arr.forEach(function (book) {
+        book.displayBookToScreen();
+    });
+}
 
 Book.prototype.displayBookToScreen = function () {
     const card = document.createElement("article");
@@ -133,9 +132,19 @@ function addToLocalStorage() {
     localStorage.setItem("library", JSON.stringify(myLibrary));
 }
 
+function retrieveFromLocalStorage() {
+    const storedLibrary = JSON.parse(localStorage.getItem("library"));
+    if (storedLibrary) {
+        storedLibrary.forEach(function (book) {
+            addBookToLibrary(book.title, book.author, book.pages, book.read);
+        });
+    }
+}
+
 //event listeners
 newBookBtn.addEventListener("click", openAddBookModal);
 cancelBtn.addEventListener("click", closeAddBookModal);
 submitBtn.addEventListener("click", handleFormInput);
 resetBtn.addEventListener("click", clearFormInputs);
 // modal.addEventListener("click", closeAddBookModal);
+window.addEventListener("load", retrieveFromLocalStorage);
