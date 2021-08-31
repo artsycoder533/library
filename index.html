@@ -42,7 +42,7 @@
                 </article>
             </section>
             <section class="modal">
-                <article class="form">
+                <article class="modal_content">
                     <form action="">
                         <h3>Add a Book</h3>
                         <label for="title">Title:</label>
@@ -51,13 +51,15 @@
                         <input type="text" name="author" id="author">
                         <label for="pages"># of Pages:</label>
                         <input type="number" name="pages" id="pages">
-                        <label for="read">Have you read it yet?</label><br>
+                        <p>Have you read it yet?</p>
                         <label for="yes">Yes</label>
                         <input type="radio" name="yes" id="" value="yes">
                         <label for="no">No</label>
                         <input type="radio" name="no" id="" value="no">
-                        <button type="submit" class="btn btn-submit">Submit</button>
+                        
                     </form>
+                    <button type="submit" class="btn btn-submit">Submit</button>
+                    <button class="btn btn-cancel">Cancel</button>
                 </article>
             </section>
         </section>
