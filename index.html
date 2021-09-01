@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <title>Library Project</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
@@ -14,31 +18,20 @@
             <section class="container_title">
                 <h1>Book Library</h1>
                 <button class="btn btn-new">New Book</button>
+                <!-- <button class="btn btn-delete">Clear Library</button> -->
             </section>
             <section class="container_content">
                 <article class="card">
-                    <h2 class="card_title" id="title">Sports Nutrition Guidebook</h2>
-                    <h3 class="card_author" id="author">Nancy Clark</h3>
-                    <h4 class="card_pages"><span id="pages">568</span> pages</h4>
-                    <h4 class="card_read">Read</h4>
-                    <button class="btn btn-edit">edit</button>
-                    <button class="btn btn-remove">remove</button>
-                </article>
-                <article class="card">
-                    <h2 class="card_title" id="title">The Da Vinci Code</h2>
-                    <h3 class="card_author" id="author">Dan Brown</h3>
-                    <h4 class="card_pages"><span id="pages">400</span> pages</h4>
-                    <h4 class="card_read">Read</h4>
-                    <button class="btn btn-edit">edit</button>
-                    <button class="btn btn-remove">remove</button>
-                </article>
-                <article class="card">
-                    <h2 class="card_title" id="title">Rich Dad, Poor Dad</h2>
-                    <h3 class="card_author" id="author">Robert Kiyosaki</h3>
-                    <h4 class="card_pages"><span id="pages">336</span> pages</h4>
-                    <h4 class="card_read">Not read yet</h4>
-                    <button class="btn btn-edit">edit</button>
-                    <button class="btn btn-remove">remove</button>
+                    <div class="card_info">
+                        <h2 class="card_title" id="title">Rich Dad, Poor Dad</h2>
+                        <p class="card_author" id="author">Robert Kiyosaki</p>
+                        <p class="card_pages"><span id="pages">336</span> pages</p>
+                    </div>
+                    <div class="card_read-wrapper">
+                        <p class="card_read">Not read yet</p>
+                        <button class="btn btn-edit"><i class="fas fa-edit"></i></button>
+                    </div>
+                    <button class="btn btn-remove"><i class="fas fa-trash-alt"></i></button>
                 </article>
             </section>
             <section class="modal">
@@ -51,16 +44,24 @@
                         <input type="text" name="author" id="author">
                         <label for="pages"># of Pages:</label>
                         <input type="number" name="pages" id="pages">
-                        <p>Have you read it yet?</p>
-                        <label for="yes">Yes</label>
-                        <input type="radio" name="radio" id="yes" value="yes">
-                        <label for="no">No</label>
-                        <input type="radio" name="radio" id="no" value="no">
                         
+                        <div class="radio">
+                            <span>Have you read it yet?</span>
+                            <span>
+                                <label for="yes">Yes</label>
+                                <input type="radio" name="radio" id="yes" value="yes">
+                            </span>
+                            <span>
+                                <label for="no">No</label>
+                            <input type="radio" name="radio" id="no" value="no">
+                            </span>
+                        </div>
                     </form>
-                    <button type="submit" class="btn btn-submit">Submit</button>
-                    <button class="btn btn-reset">Reset</button>
-                    <button class="btn btn-cancel">Cancel</button>
+                    <div class="btn-wrapper">
+                        <button type="submit" class="btn btn-submit">Submit</button>
+                        <button class="btn btn-reset">Reset</button>
+                        <button class="btn btn-cancel">Cancel</button>
+                    </div>
                 </article>
             </section>
         </section>
