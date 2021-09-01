@@ -5,6 +5,7 @@ const resetBtn = document.querySelector(".btn-reset");
 const modal = document.querySelector(".modal");
 const form = document.querySelector(".form");
 const container = document.querySelector(".container_content");
+const errorMessage = document.querySelector(".error");
 
 let myLibrary = [];
 
@@ -47,29 +48,37 @@ function displayBook(arr) {
 Book.prototype.displayBookToScreen = function () {
     const card = document.createElement("article");
     card.classList.add("card");
+    const cardInfo = document.createElement("div");
+    cardInfo.classList.add("card_info");
     const cardTitle = document.createElement("h2");
     cardTitle.classList.add("card_title");
     cardTitle.textContent = this.title;
-    const cardAuthor = document.createElement("h3");
+    const cardAuthor = document.createElement("p");
     cardAuthor.classList.add("card_author");
     cardAuthor.textContent = this.author;
-    const cardPages = document.createElement("h4");
+    const cardPages = document.createElement("p");
     cardPages.classList.add("card_pages");
     cardPages.textContent = `${this.pages} pages`;
-    const cardRead = document.createElement("h4");
+    const span = document.createElement("span");
+    span.innerHTML = `<i class="fas fa-book-open"></i>`;
+    cardInfo.append(cardTitle, cardAuthor, cardPages, span);
+    const cardReadWrapper = document.createElement("div");
+    cardReadWrapper.classList.add("card_read-wrapper");
+    const cardRead = document.createElement("p");
     cardRead.classList.add("card_read");
     cardRead.textContent = this.read;
     const buttonEdit = document.createElement("button");
     buttonEdit.setAttribute("id", myLibrary.indexOf(this));
-    buttonEdit.textContent = "Edit";
+    buttonEdit.innerHTML= `<i class="fas fa-edit"></i>`;
     buttonEdit.classList.add("btn", "btn-edit");
     buttonEdit.addEventListener("click", this.editReadStatus.bind(this));
+    cardReadWrapper.append(cardRead, buttonEdit);
     const buttonRemove = document.createElement("button");
     buttonRemove.setAttribute("id", myLibrary.indexOf(this));
-    buttonRemove.textContent = "Remove";
+    buttonRemove.innerHTML = `<i class="fas fa-trash-alt"></i>`;
     buttonRemove.classList.add("btn", "btn-remove");
     buttonRemove.addEventListener("click", this.removeBook);
-    card.append(cardTitle, cardAuthor, cardPages, cardRead, buttonEdit, buttonRemove);
+    card.append(cardInfo, cardReadWrapper, buttonRemove);
     container.appendChild(card);
 }
 
@@ -80,8 +89,6 @@ Book.prototype.removeBook = function() {
     addToLocalStorage();
 }
 
-
-// displayBook(myLibrary);
 
 function addBookToLibrary(title, author, pages, read) {
     const newBook = Object.create(Book.prototype);
@@ -104,14 +111,18 @@ function clearFormInputs() {
     form.elements.namedItem("pages").value = "";
     form.elements.namedItem("yes").checked = false;
     form.elements.namedItem("no").checked = false;
+    errorMessage.textContent = "";
 }
 
 function openAddBookModal() {
     modal.classList.add("modal_open");
+    modal.nextElementSibling.classList.add("modal_content-show");
 }
 
 function closeAddBookModal() {
     modal.classList.remove("modal_open");
+    modal.nextElementSibling.classList.remove("modal_content-show");
+    clearFormInputs();
 }
 
 function handleFormInput() {
@@ -119,6 +130,12 @@ function handleFormInput() {
     const author = form.elements.namedItem("author").value;
     const pages = form.elements.namedItem("pages").value;
     let read;
+    let yes = form.elements.namedItem("yes").checked;
+    let no = form.elements.namedItem("no").checked;
+    if (title === "" || author === "" || pages === "" || pages <= 0 || (yes === false && no === false) ) {
+        errorMessage.textContent = "Please enter valid input!";
+        return;
+    }
     if (form.elements.namedItem("yes").checked) {
         read = "read";
     }
@@ -126,6 +143,7 @@ function handleFormInput() {
         read = "has not read";
     }
     addBookToLibrary(title, author, pages, read);
+    errorMessage.textContent = "";
 }
 
 function addToLocalStorage() {
@@ -146,5 +164,5 @@ newBookBtn.addEventListener("click", openAddBookModal);
 cancelBtn.addEventListener("click", closeAddBookModal);
 submitBtn.addEventListener("click", handleFormInput);
 resetBtn.addEventListener("click", clearFormInputs);
-// modal.addEventListener("click", closeAddBookModal);
+modal.addEventListener("click", closeAddBookModal);
 window.addEventListener("load", retrieveFromLocalStorage);
