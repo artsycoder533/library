@@ -2,6 +2,7 @@ const newBookBtn = document.querySelector(".btn-new");
 const cancelBtn = document.querySelector(".btn-cancel");
 const submitBtn = document.querySelector(".btn-submit");
 const resetBtn = document.querySelector(".btn-reset");
+const clearBtn = document.querySelector(".btn-delete");
 const modal = document.querySelector(".modal");
 const form = document.querySelector(".form");
 const container = document.querySelector(".container_content");
@@ -95,6 +96,14 @@ function addBookToLibrary(title, author, pages, read) {
     addToLocalStorage();
 }
 
+function clearLibrary() {
+    Array.from(container.children).forEach(function (child) {
+        child.remove();
+        myLibrary.pop();
+    });
+    addToLocalStorage();
+}
+
 function clearFormInputs() {
     form.elements.namedItem("title").value = "";
     form.elements.namedItem("author").value = "";
@@ -156,3 +165,4 @@ submitBtn.addEventListener("click", handleFormInput);
 resetBtn.addEventListener("click", clearFormInputs);
 modal.addEventListener("click", closeAddBookModal);
 window.addEventListener("load", retrieveFromLocalStorage);
+clearBtn.addEventListener("click", clearLibrary);
