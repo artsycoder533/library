@@ -55,8 +55,7 @@ We were tasked to go back and refactor our application so that it implemented cl
 
 ### Screenshot
 
-- Mobile Screenshot [Mobile Screenshot](./assets/mobile2.png)
-- Desktop Screenshot [Desktop Screenshot](./assets/desktop1.png)
+- Desktop Screenshot [Desktop Screenshot](./assets/images/desktop.png)
 
 ### Links
 
