@@ -10,34 +10,72 @@ const errorMessage = document.querySelector(".error");
 let myLibrary = [];
 
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    // this.info = function () {
-    //     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-    // }
+class Book {
+	constructor(title, author, pages, read) {
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.read = read;
+	}
+
+	editReadStatus() {
+		console.log(this.read);
+		let status = this.read;
+		// let status = this.previousElementSibling.textContent;
+		console.log(status);
+		if (status === "read") {
+			status = "has not read";
+			this.read = `${status}`;
+		} else if (status === "has not read") {
+			status = "read";
+			this.read = `${status}`;
+		}
+		// this.previousElementSibling.textContent = status;
+		addToLocalStorage();
+		const changeStatus = container.children[myLibrary.indexOf(this)];
+		changeStatus.querySelector(".card_read").textContent = `${status}`;
+		//console.log(container.children[myLibrary.indexOf(this)]);
+	}
+
+	displayBookToScreen() {
+		const card = document.createElement("article");
+		card.classList.add("card");
+		const cardInfo = document.createElement("div");
+		cardInfo.classList.add("card_info");
+		const cardTitle = document.createElement("h2");
+		cardTitle.classList.add("card_title");
+		cardTitle.textContent = this.title;
+		const cardAuthor = document.createElement("p");
+		cardAuthor.classList.add("card_author");
+		cardAuthor.textContent = this.author;
+		const cardPages = document.createElement("p");
+		cardPages.classList.add("card_pages");
+		cardPages.textContent = `${this.pages} pages`;
+		const span = document.createElement("span");
+		span.innerHTML = `<i class="fas fa-book-open"></i>`;
+		cardInfo.append(cardTitle, cardAuthor, cardPages, span);
+		const cardReadWrapper = document.createElement("div");
+		cardReadWrapper.classList.add("card_read-wrapper");
+		const cardRead = document.createElement("p");
+		cardRead.classList.add("card_read");
+		cardRead.textContent = this.read;
+		const buttonEdit = document.createElement("button");
+		buttonEdit.setAttribute("id", myLibrary.indexOf(this));
+		buttonEdit.innerHTML = `<i class="fas fa-edit"></i>`;
+		buttonEdit.classList.add("btn", "btn-edit");
+		buttonEdit.addEventListener("click", this.editReadStatus.bind(this));
+		cardReadWrapper.append(cardRead, buttonEdit);
+		const buttonRemove = document.createElement("button");
+		buttonRemove.setAttribute("id", myLibrary.indexOf(this));
+		buttonRemove.innerHTML = `<i class="fas fa-trash-alt"></i>`;
+		buttonRemove.classList.add("btn", "btn-remove");
+		buttonRemove.addEventListener("click", this.removeBook);
+		card.append(cardInfo, cardReadWrapper, buttonRemove);
+		container.appendChild(card);
+	}
 }
 
-Book.prototype.editReadStatus = function () {
-    console.log(this.read);
-    let status = this.read;
-	// let status = this.previousElementSibling.textContent;
-	console.log(status);
-	if (status === "read") {
-        status = "has not read";
-        this.read = `${status}`;
-	} else if (status === "has not read") {
-        status = "read";
-        this.read = `${status}`;
-    }
-    // this.previousElementSibling.textContent = status;
-    addToLocalStorage();
-    const changeStatus = container.children[myLibrary.indexOf(this)];
-    changeStatus.querySelector(".card_read").textContent = `${status}`;
-    //console.log(container.children[myLibrary.indexOf(this)]);
-}
+
 
 function displayBook(arr) {
     arr.forEach(function (book) {
@@ -45,42 +83,7 @@ function displayBook(arr) {
     });
 }
 
-Book.prototype.displayBookToScreen = function () {
-    const card = document.createElement("article");
-    card.classList.add("card");
-    const cardInfo = document.createElement("div");
-    cardInfo.classList.add("card_info");
-    const cardTitle = document.createElement("h2");
-    cardTitle.classList.add("card_title");
-    cardTitle.textContent = this.title;
-    const cardAuthor = document.createElement("p");
-    cardAuthor.classList.add("card_author");
-    cardAuthor.textContent = this.author;
-    const cardPages = document.createElement("p");
-    cardPages.classList.add("card_pages");
-    cardPages.textContent = `${this.pages} pages`;
-    const span = document.createElement("span");
-    span.innerHTML = `<i class="fas fa-book-open"></i>`;
-    cardInfo.append(cardTitle, cardAuthor, cardPages, span);
-    const cardReadWrapper = document.createElement("div");
-    cardReadWrapper.classList.add("card_read-wrapper");
-    const cardRead = document.createElement("p");
-    cardRead.classList.add("card_read");
-    cardRead.textContent = this.read;
-    const buttonEdit = document.createElement("button");
-    buttonEdit.setAttribute("id", myLibrary.indexOf(this));
-    buttonEdit.innerHTML= `<i class="fas fa-edit"></i>`;
-    buttonEdit.classList.add("btn", "btn-edit");
-    buttonEdit.addEventListener("click", this.editReadStatus.bind(this));
-    cardReadWrapper.append(cardRead, buttonEdit);
-    const buttonRemove = document.createElement("button");
-    buttonRemove.setAttribute("id", myLibrary.indexOf(this));
-    buttonRemove.innerHTML = `<i class="fas fa-trash-alt"></i>`;
-    buttonRemove.classList.add("btn", "btn-remove");
-    buttonRemove.addEventListener("click", this.removeBook);
-    card.append(cardInfo, cardReadWrapper, buttonRemove);
-    container.appendChild(card);
-}
+
 
 Book.prototype.removeBook = function() {
     myLibrary.splice(this.id, 1);
