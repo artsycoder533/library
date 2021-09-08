@@ -19,10 +19,7 @@ class Book {
 	}
 
 	editReadStatus() {
-		console.log(this.read);
 		let status = this.read;
-		// let status = this.previousElementSibling.textContent;
-		console.log(status);
 		if (status === "read") {
 			status = "has not read";
 			this.read = `${status}`;
@@ -30,11 +27,9 @@ class Book {
 			status = "read";
 			this.read = `${status}`;
 		}
-		// this.previousElementSibling.textContent = status;
 		addToLocalStorage();
 		const changeStatus = container.children[myLibrary.indexOf(this)];
 		changeStatus.querySelector(".card_read").textContent = `${status}`;
-		//console.log(container.children[myLibrary.indexOf(this)]);
 	}
 
 	displayBookToScreen() {
@@ -73,9 +68,13 @@ class Book {
 		card.append(cardInfo, cardReadWrapper, buttonRemove);
 		container.appendChild(card);
 	}
+
+	removeBook() {
+		myLibrary.splice(this.id, 1);
+		container.children[this.id].remove();
+		addToLocalStorage();
+	}
 }
-
-
 
 function displayBook(arr) {
     arr.forEach(function (book) {
@@ -83,25 +82,13 @@ function displayBook(arr) {
     });
 }
 
-
-
-Book.prototype.removeBook = function() {
-    myLibrary.splice(this.id, 1);
-    container.children[this.id].remove();
-    console.log(myLibrary);
-    addToLocalStorage();
-}
-
-
 function addBookToLibrary(title, author, pages, read) {
     const newBook = Object.create(Book.prototype);
     newBook.title = title;
     newBook.author = author;
     newBook.pages = pages;
     newBook.read = read;
-    // const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
-    console.log(myLibrary);
     closeAddBookModal();
     clearFormInputs();
     newBook.displayBookToScreen();
