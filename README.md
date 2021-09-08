@@ -1,12 +1,48 @@
-Useful Resources :
-Local Storage
-https://www.javascripttutorial.net/web-apis/javascript-localstorage/
+# Personal Portfolio
 
-Object.create()
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+## Table of contents
 
-DOM Load Event
-https://www.javascripttutorial.net/javascript-dom/javascript-page-load-events/
+- [Overview](#overview)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+- [Author](#author)
 
-Adding back methods from objects retrieved from local storage
-https://stackoverflow.com/questions/64141609/saving-objects-in-localstorage-which-has-a-method
+## Overview
+
+I am a Front End Developer currently skilled in HTML5, CSS3, SASS, Javascript, Git, and Markdown.
+
+### Screenshot
+
+![Mobile Screenshot](mobile_screenshot.png)
+![Desktop Screenshot](desktop_screenshot.png)
+
+### Links
+
+Below are links to my featured projects:
+
+- Solution URL: []()
+- Live Site URL: []()
+
+## My process
+
+### Built with
+
+- Semantic HTML5 markup
+- SASS
+- Javascript
+- Mobile-first workflow
+
+### What I learned
+
+### Continued development
+
+My end goal is to become a Full Stack Developer. I am currently following The Odin Project's Full Stack Javascript curriculum. I am comfortable with front end tools such as HTML5, CSS3, SASS, and Javascript. I am looking forward to learning more about the back end and how everything works together to create full stack applications.
+
+## Author
+
+- Personal Portfolio - []()
+-
