@@ -2,6 +2,8 @@
 
 This is my solution to The Odin Project's [Project Library](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/library).
 
+[![wakatime](https://wakatime.com/badge/github/artsycoder533/library.svg)](https://wakatime.com/badge/github/artsycoder533/library)
+
 ## Table of contents
 
 - [Overview](#overview)
